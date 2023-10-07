@@ -21,8 +21,9 @@ const handleErrors = (err) => {
     errors.password = "That password is incorrect";
   }
 
-  if (err.code === 11000 && err.keyPattern && err.keyPattern.email == 1) {
+  if (err.code === 11000) {
     errors.email = "that email is already registered";
+    return errors;
   }
 
   if (err.message.includes("user validation failed")) {
@@ -44,10 +45,10 @@ const createToken = (id) => {
 const register = async (req, res) => {
   try {
     const { name, username, email, password } = req.body;
-    const foundUser = await User.findOne({username: username});
-    if(foundUser) {
+    const foundUser = await User.findOne({ username: username });
+    if (foundUser) {
       return res.status(409).json({
-        error: "Username is Taken!"
+        errors: { username: "Username is Taken!" },
       });
     }
     const user = await User.create({ name, username, email, password });

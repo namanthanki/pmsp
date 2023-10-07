@@ -28,7 +28,12 @@ const Register = () => {
         });
       } else {
         const errorData = await response.json();
-        if (errorData.errors.email) {
+        if (errorData.errors.username) {
+          toast.error("Registration error: " + errorData.errors.username, {
+            position: "top-right",
+            autoClose: 5000, // Close the toast after 5 seconds
+          });
+        } else if (errorData.errors.email) {
           toast.error("Registration error: " + errorData.errors.email, {
             position: "top-right",
             autoClose: 5000, // Close the toast after 5 seconds
@@ -38,12 +43,8 @@ const Register = () => {
             position: "top-right",
             autoClose: 5000, // Close the toast after 5 seconds
           });
-        } else if (errorData.errors.username) {
-          toast.error("Registration error: " + errorData.errors.username, {
-            position: "top-right",
-            autoClose: 5000, // Close the toast after 5 seconds
-          });
         }
+        console.log(errorData);
       }
     } catch (error) {
       toast.error("Network error: " + error, {
