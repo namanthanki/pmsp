@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,50 @@ const Register = () => {
     password: "",
   });
 
+  const registerUser = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        await response.json();
+        toast.success("Registration successful!", {
+          position: "top-right",
+          autoClose: 3000, // Close the toast after 3 seconds
+        });
+      } else {
+        const errorData = await response.json();
+        if (errorData.errors.username) {
+          toast.error("Registration error: " + errorData.errors.username, {
+            position: "top-right",
+            autoClose: 5000, // Close the toast after 5 seconds
+          });
+        } else if (errorData.errors.email) {
+          toast.error("Registration error: " + errorData.errors.email, {
+            position: "top-right",
+            autoClose: 5000, // Close the toast after 5 seconds
+          });
+        } else if (errorData.errors.password) {
+          toast.error("Registration error: " + errorData.errors.password, {
+            position: "top-right",
+            autoClose: 5000, // Close the toast after 5 seconds
+          });
+        }
+        console.log(errorData);
+      }
+    } catch (error) {
+      toast.error("Network error: " + error, {
+        position: "top-right",
+        autoClose: 5000, // Close the toast after 5 seconds
+      });
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -16,8 +61,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(formData);
+    registerUser();
   };
 
   return (

@@ -2,8 +2,8 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const nodeMailer = require("nodemailer");
 const google = require("googleapis").google;
-const otpGenerator = require('otp-generator');
-const bcrypt = require('bcrypt');
+const otpGenerator = require("otp-generator");
+const bcrypt = require("bcrypt");
 
 require("dotenv").config();
 
@@ -45,10 +45,10 @@ const createToken = (id) => {
 const register = async (req, res) => {
   try {
     const { name, username, email, password } = req.body;
-    const foundUser = await User.findOne({username: username});
-    if(foundUser) {
+    const foundUser = await User.findOne({ username: username });
+    if (foundUser) {
       return res.status(409).json({
-        error: "Username is Taken!"
+        errors: { username: "Username is Taken!" },
       });
     }
     const user = await User.create({ name, username, email, password });
@@ -98,7 +98,10 @@ const activate = async (req, res) => {
 
     const accessToken = OAuth2_client.getAccessToken();
 
-    const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+    const otp = otpGenerator.generate(6, {
+      upperCaseAlphabets: false,
+      specialChars: false,
+    });
     const salt = await bcrypt.genSalt();
     const hashedOtp = await bcrypt.hash(otp, salt);
 
@@ -138,17 +141,13 @@ const activate = async (req, res) => {
     console.log(result.accepted);
     console.log(result.rejected);
 
-    res.status(201).json(
-      { 
-        message: 'OTP sent to email for verification' 
-      }
-    );
+    res.status(201).json({
+      message: "OTP sent to email for verification",
+    });
   } catch (error) {
-    res.status(500).json(
-      { 
-        error: 'An error occurred' 
-      }
-    );
+    res.status(500).json({
+      error: "An error occurred",
+    });
   }
 };
 
@@ -159,31 +158,31 @@ const verifyOtp = async (req, res) => {
     const storedOtpData = otpStore[email];
 
     if (!storedOtpData) {
-      return res.status(404).json({ error: 'OTP not found' });
+      return res.status(404).json({ error: "OTP not found" });
     }
 
     if (Date.now() > storedOtpData.expiresAt) {
       delete otpStore[email];
-      return res.status(401).json({ error: 'OTP has expired' });
+      return res.status(401).json({ error: "OTP has expired" });
     }
 
     const isOtpValid = await bcrypt.compare(otp, storedOtpData.otp);
 
     if (isOtpValid) {
       delete otpStore[email];
-      res.status(201).json({ message: 'OTP verified successfully' });
+      res.status(201).json({ message: "OTP verified successfully" });
     } else {
-      res.status(401).json({ error: 'Invalid OTP' });
+      res.status(401).json({ error: "Invalid OTP" });
     }
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred' });
+    res.status(500).json({ error: "An error occurred" });
   }
-}
+};
 
 module.exports = {
   register,
   login,
   logout,
   activate,
-  verifyOtp
+  verifyOtp,
 };

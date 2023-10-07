@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -12,10 +13,39 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const loginUser = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        await response.json();
+        toast.success("Login successful!", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      } else {
+        const errorData = await response.json();
+        if (errorData.errors.email || errorData.errors.password) {
+          toast.error("Login error: Wrong Credentials!", {
+            position: "top-right",
+            autoClose: 5000,
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(formData);
+    loginUser();
   };
   return (
     <div className="container">
