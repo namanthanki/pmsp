@@ -44,6 +44,12 @@ const createToken = (id) => {
 const register = async (req, res) => {
   try {
     const { name, username, email, password } = req.body;
+    const foundUser = await User.findOne({username: username});
+    if(foundUser) {
+      return res.status(409).json({
+        error: "Username is Taken!"
+      });
+    }
     const user = await User.create({ name, username, email, password });
     const token = createToken(user._id);
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
