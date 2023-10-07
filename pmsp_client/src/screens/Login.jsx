@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,11 +26,16 @@ const Login = () => {
       });
 
       if (response.ok) {
-        await response.json();
+        const data = await response.json();
+
         toast.success("Login successful!", {
           position: "top-right",
           autoClose: 3000,
         });
+
+        localStorage.setItem("jwt", data.token);
+
+        navigate("/");
       } else {
         const errorData = await response.json();
         if (errorData.errors.email || errorData.errors.password) {

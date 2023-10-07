@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./helpers/ProtectedRoute";
 
 const Dashboard = lazy(() => import("./screens/Dashboard"));
 const Register = lazy(() => import("./screens/Register"));
@@ -10,10 +11,19 @@ const App = () => (
   <Router>
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
-        <Route exact path="/" element={<Dashboard />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Dashboard />{" "}
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/verify/:email" element={<VerifyOTP />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/verify" element={<VerifyOTP />} />
       </Routes>
     </Suspense>
   </Router>

@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     name: "",
@@ -24,24 +26,40 @@ const Register = () => {
         await response.json();
         toast.success("Registration successful!", {
           position: "top-right",
-          autoClose: 3000, // Close the toast after 3 seconds
+          autoClose: 3000,
         });
+        const data = await fetch("http://localhost:5000/api/activate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: formData.email }),
+        });
+
+        if (data.ok) {
+          const activationData = await data.json();
+          toast.success(activationData.message);
+          navigate(`/verify/${formData.email}`);
+        } else {
+          const errorData = await data.json();
+          toast.error(errorData.error);
+        }
       } else {
         const errorData = await response.json();
         if (errorData.errors.username) {
           toast.error("Registration error: " + errorData.errors.username, {
             position: "top-right",
-            autoClose: 5000, // Close the toast after 5 seconds
+            autoClose: 5000,
           });
         } else if (errorData.errors.email) {
           toast.error("Registration error: " + errorData.errors.email, {
             position: "top-right",
-            autoClose: 5000, // Close the toast after 5 seconds
+            autoClose: 5000,
           });
         } else if (errorData.errors.password) {
           toast.error("Registration error: " + errorData.errors.password, {
             position: "top-right",
-            autoClose: 5000, // Close the toast after 5 seconds
+            autoClose: 5000,
           });
         }
         console.log(errorData);
