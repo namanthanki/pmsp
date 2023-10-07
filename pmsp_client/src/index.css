@@ -52,7 +52,8 @@ input[type='submit'] {
 }
 
 .register-container,
-.login-container {
+.login-container,
+.otp-container {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -62,14 +63,16 @@ input[type='submit'] {
 }
 
 .register-container h1,
-.login-container h1 {
+.login-container h1,
+.otp-container h1 {
   text-transform: uppercase;
   font-weight: 700;
   color: var(--primary);
 }
 
 .register-container .register-form,
-.login-container .login-form {
+.login-container .login-form,
+.otp-container .otp-form {
   display: flex;
   flex-direction: column;
   align-items: center;
