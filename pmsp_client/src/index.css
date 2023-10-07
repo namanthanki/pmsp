@@ -26,6 +26,9 @@ html {
   height: 100vh;
   width: 80%;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 a {
@@ -34,7 +37,7 @@ a {
 }
 
 input {
-  width: 100%;
+  width: 70%;
   outline: none;
   padding: .7rem 1rem;
   border: 1px solid var(--black);
@@ -54,12 +57,16 @@ input[type='submit'] {
 .register-container,
 .login-container,
 .otp-container {
-  height: 100%;
+  height: 80%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 1.3rem;
+  background: var(--white);
+  border-radius: 9px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .register-container h1,
@@ -68,6 +75,25 @@ input[type='submit'] {
   text-transform: uppercase;
   font-weight: 700;
   color: var(--primary);
+  font-size: 1.8rem;
+}
+
+.register-container .gif-container {
+  min-width: 50%;
+  height: 100%;
+  background: url('./assets/images/Register.gif') center center no-repeat;
+}
+
+.login-container .gif-container {
+  min-width: 50%;
+  height: 100%;
+  background: url('./assets/images/Login.gif') center center no-repeat;
+}
+
+.otp-container .gif-container {
+  min-width: 50%;
+  height: 100%;
+  background: url('./assets/images/OTP.gif') center center no-repeat;
 }
 
 .register-container .register-form,
@@ -77,11 +103,11 @@ input[type='submit'] {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 380px;
+  min-width: 50%;
+  height: 80%;
   gap: 1rem;
   padding: 2rem;
-  border-radius: 9px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-right: 1px solid var(--black-transparent);
 }
 
 .bottom-nav {

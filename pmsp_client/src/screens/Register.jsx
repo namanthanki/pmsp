@@ -24,7 +24,7 @@ const Register = () => {
     <div className="container">
       <div className="register-container">
         <form className="register-form" onSubmit={handleSubmit}>
-          <h1>Register</h1>
+          <h1>Registration</h1>
           <input
             type="text"
             name="username"
@@ -63,6 +63,7 @@ const Register = () => {
             <Link to="/login">Login</Link>
           </p>
         </form>
+        <div className="gif-container"></div>
       </div>
     </div>
   );

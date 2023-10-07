@@ -30,6 +30,7 @@ const VerifyOTP = () => {
           />
           <input type="submit" value="VERIFY" />
         </form>
+        <div className="gif-container"></div>
       </div>
     </div>
   );

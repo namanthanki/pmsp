@@ -44,6 +44,7 @@ const Login = () => {
             <Link to="/register">Register</Link>
           </p>
         </form>
+        <div className="gif-container"></div>
       </div>
     </div>
   );
