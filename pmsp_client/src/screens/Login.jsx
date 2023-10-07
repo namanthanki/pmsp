@@ -24,11 +24,15 @@ const Login = () => {
       });
 
       if (response.ok) {
-        await response.json();
+        const data = await response.json();
+
         toast.success("Login successful!", {
           position: "top-right",
           autoClose: 3000,
         });
+
+        localStorage.setItem("jwt", data.token);
+        
       } else {
         const errorData = await response.json();
         if (errorData.errors.email || errorData.errors.password) {

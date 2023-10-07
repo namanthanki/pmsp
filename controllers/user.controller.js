@@ -66,8 +66,7 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.login(email, password);
     const token = createToken(user._id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).json({ user: user._id });
+    res.status(200).json({ user: user._id, token: token });
   } catch (error) {
     const errors = handleErrors(error);
     res.status(400).json({ errors });
@@ -75,10 +74,8 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  const { email } = req.body;
-
   res.cookie("jwt", "", { maxAge: 1 });
-  res.redirect("/");
+  res.redirect("http://localhost:5173/login");
 };
 
 const activate = async (req, res) => {
