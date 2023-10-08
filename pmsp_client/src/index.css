@@ -2,6 +2,8 @@
 
 :root {
   --primary: #42A5F5;
+  --google-blue: #4285F4;
+  --microsoft-red: #F25022;
   --white: #F7FFF7;
   --gray: #cbd2cb;
   --black: #463F3A;
@@ -53,6 +55,32 @@ input[type='submit'] {
   font-weight: 700;
   color: var(--white);
   cursor: pointer;
+}
+
+.google-calendar-btn,
+.microsoft-calendar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  width: 100%;
+  outline: none;
+  padding: .7rem 1rem;
+  border-radius: 9px;
+  border: none;
+  background: var(--google-blue);
+  font-weight: 700;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.google-calendar-btn span,
+.microsoft-calendar-btn span {
+  font-weight: 300;
+}
+
+.microsoft-calendar-btn {
+  background: var(--microsoft-red);
 }
 
 .register-container,
@@ -127,10 +155,64 @@ input[type='submit'] {
   background: var(--white);
 }
 
+.dashboard-container .drawer {
+  width: 4%;
+  height: 100%;
+  border-right: 1px solid var(--black-transparent);
+  padding-block: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.dashboard-container .drawer .navigation-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.dashboard-container .drawer .navigation-container a {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  box-shadow: 1px 1px 23px rgba(0, 0, 0, 0.09)
+}
+
+.dashboard-container .drawer .navigation-container .confirmed-meetings {
+  color: var(--success);
+}
+
+.dashboard-container .drawer .navigation-container .canceled-meetings {
+  color: var(--error);
+}
+
+.dashboard-container .drawer .navigation-container .RSVP-meetings {
+  color: var(--primary);
+}
+
 .dashboard-container .sidebar {
   width: 25%;
   height: 100%;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.dashboard-container .sidebar .buttons-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .dashboard-container .meetings-container {
@@ -140,7 +222,7 @@ input[type='submit'] {
   justify-content: flex-start;
   gap: 2rem;
   height: 100%;
-  width: 75%;
+  width: 71%;
   padding: 2rem;
   background-color: var(--gray);
 }
