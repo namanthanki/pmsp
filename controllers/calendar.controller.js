@@ -37,42 +37,58 @@ const googleRedirect = async (req, res) => {
 }
 
 const scheduleEvent = async (req, res) => {
-    await calendar.events.insert({
-        calendarId: "primary",
-        auth: oauth2Client,
-        requestBody: {
-            summary: "test api event summary 2",
-            description: "test api event description 2",
-            start: {
-                dateTime: dayjs(new Date()).add(2, 'day').toISOString(),
-                timeZone: "Asia/Kolkata",
-            },
-            end: {
-                dateTime: dayjs(new Date()).add(3, 'day').toISOString(),
-                timeZone: "Asia/Kolkata",
-            },
-            attendees: [
-                {
-                  "email": "namanthanki785@gmail.com",
-                  "displayName": "Naman Thanki",
-                  "organizer": false,
-                  "responseStatus": "needsAction", // needsAction, declined, tentative, accepted
-                  "comment": "Good Work!",
-                },
-                {
-                    "email": "stuniz7855@gmail.com",
-                    "displayName": "Thanki Naman",
-                    "organizer": false,
-                    "responseStatus": "needsAction", // needsAction, declined, tentative, accepted
-                    "comment": "Good Work!",
-                  }
-              ]
-        }
-    });
+    try {
+        const {
+            summaryText,
+            descriptionText,
+            eventStartTime,
+            eventEndTime,
+            attendeesList
+        } = req.body;
 
-    res.status(200).json({
-        message: "Inserted Event"
-    });
+        await calendar.events.insert({
+            calendarId: "primary",
+            auth: oauth2Client,
+            requestBody: {
+                summary: summaryText,
+                description: descriptionText,
+                start: {
+                    // dateTime: dayjs(new Date()).add(2, 'day').toISOString(),
+                    dateTime: eventStartTime,
+                    timeZone: "Asia/Kolkata",
+                },
+                end: {
+                    dateTime: eventEndTime,
+                    timeZone: "Asia/Kolkata",
+                },
+                attendees: attendeesList
+                // [
+                //     {
+                //       "email": "namanthanki785@gmail.com",
+                //       "displayName": "Naman Thanki",
+                //       "organizer": false,
+                //       "responseStatus": "needsAction", // needsAction, declined, tentative, accepted
+                //       "comment": "Good Work!",
+                //     },
+                //     {
+                //         "email": "stuniz7855@gmail.com",
+                //         "displayName": "Thanki Naman",
+                //         "organizer": false,
+                //         "responseStatus": "needsAction", // needsAction, declined, tentative, accepted
+                //         "comment": "Good Work!",
+                //       }
+                //   ]
+            }
+        });
+
+        res.status(200).json({
+            message: "Inserted Event"
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: "Failed to Insert Event"
+        });
+    }
 }
 
 module.exports = {
