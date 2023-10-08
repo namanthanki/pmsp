@@ -3,6 +3,7 @@
 :root {
   --primary: #42A5F5;
   --white: #F7FFF7;
+  --gray: #cbd2cb;
   --black: #463F3A;
   --black-transparent: rgba(70, 63, 58, 0.80);
   --error: #F44336;
@@ -117,4 +118,120 @@ input[type='submit'] {
 
 .bottom-nav a {
   color: var(--primary);
+}
+
+.dashboard-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: var(--white);
+}
+
+.dashboard-container .sidebar {
+  width: 25%;
+  height: 100%;
+  padding: 2rem;
+}
+
+.dashboard-container .meetings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
+  height: 100%;
+  width: 75%;
+  padding: 2rem;
+  background-color: var(--gray);
+}
+
+.dashboard-container .meetings-container .top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: 200;
+}
+
+.dashboard-container .meetings-container .date-time-container h1 {
+  font-weight: 500;
+}
+
+.dashboard-container .meetings-container .date-time-container .date-time .meeting-date span {
+  color: var(--primary);
+  font-size: 1.3rem;
+}
+
+.dashboard-container .meetings-container .date-time-container .date-time .meeting-date {
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.dashboard-container .meetings-container .date-time-container .date-time .meeting-day {
+  font-size: .8rem;
+
+}
+
+.dashboard-container .meetings-container .meetings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.dashboard-container .meetings-container .meetings .meeting {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--white);
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  gap: 2rem;
+}
+
+.dashboard-container .meetings-container .meetings .meeting .meeting-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  height: 100%;
+}
+
+.dashboard-container .meetings-container .meetings .meeting .meeting-data .vertical-bar {
+  width: 4px;
+  height: 100%;
+  background: var(--primary);
+}
+
+.dashboard-container .meetings-container .meetings .meeting .meeting-data .meeting-end {
+  font-weight: 200;
+  font-size: .8rem;
+}
+
+.dashboard-container .meetings-container .meetings .meeting .meeting-data .meeting-duration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 35px;
+  gap: 6px;
+  background: rgba(70, 63, 58, 0.27);
+  border-radius: 3px;
+}
+
+.dashboard-container .meetings-container .meetings .meeting .meeting-data .meeting-duration .icon {
+  color: var(--primary);
+  margin-top: -2px;
+}
+
+.dashboard-container .meetings-container .meetings .meeting .meeting-data .meeting-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.dashboard-container .meetings-container .meetings .meeting .menu {
+  justify-self: flex-end;
 }
