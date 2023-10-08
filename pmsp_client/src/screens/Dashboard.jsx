@@ -1,11 +1,66 @@
+import { Link } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical, faClock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsisVertical,
+  faClock,
+  faCalendarCheck,
+  faCalendarXmark,
+  faExclamation,
+  faLink,
+} from "@fortawesome/free-solid-svg-icons";
+import { faGoogle, faMicrosoft } from "@fortawesome/free-brands-svg-icons";
 
 const Dashboard = () => {
   return (
     <div className="dashboard-container">
+      <div className="drawer">
+        <div className="navigation-container">
+          <Link
+            to="/"
+            className="create-link"
+            data-tooltip-id="create-link"
+            data-tooltip-content="Create Link">
+            <FontAwesomeIcon icon={faLink} />
+          </Link>
+          <Tooltip id="create-link" place="right" />
+          <Link
+            to="/"
+            className="confirmed-meetings"
+            data-tooltip-id="confirmed-meetings"
+            data-tooltip-content="Confirmed Meetings">
+            <FontAwesomeIcon icon={faCalendarCheck} />
+          </Link>
+          <Tooltip id="confirmed-meetings" place="right" />
+          <Link
+            to="/"
+            className="canceled-meetings"
+            data-tooltip-id="canceled-meetings"
+            data-tooltip-content="Canceled Meetings">
+            <FontAwesomeIcon icon={faCalendarXmark} />
+          </Link>
+          <Tooltip id="canceled-meetings" place="right" />
+          <Link
+            to="/"
+            className="RSVP-meetings"
+            data-tooltip-id="RSVP-meetings"
+            data-tooltip-content="Waiting List">
+            <FontAwesomeIcon icon={faExclamation} />
+          </Link>
+          <Tooltip id="RSVP-meetings" place="right" />
+        </div>
+      </div>
       <div className="sidebar">
         <h1>PMSP</h1>
+        <div className="buttons-container">
+          <Link to="/" className="google-calendar-btn">
+            <FontAwesomeIcon icon={faGoogle} /> <span>&nbsp;Calendar</span>
+          </Link>
+          <Link to="/" className="microsoft-calendar-btn">
+            <FontAwesomeIcon icon={faMicrosoft} /> <span>&nbsp;Calendar</span>
+          </Link>
+        </div>
       </div>
       <div className="meetings-container">
         <div className="top-nav">
